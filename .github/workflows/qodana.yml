@@ -17,3 +17,5 @@ jobs:
         uses: JetBrains/qodana-action@v2026.1
         with:
           args: --linter,jetbrains/qodana-jvm-community
+          # This forces GitHub to create and upload the interactive HTML dashboard report
+          upload-result: true
