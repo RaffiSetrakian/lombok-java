@@ -1,29 +1,19 @@
 name: Qodana Code Quality
 
-# 1. When should this robot run?
 on:
   push:
-    branches: [ main, master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ main, master ]
-  workflow_dispatch: # Allows you to trigger it manually via the GitHub website
+    branches: [ master, main ]
 
-# 2. What actions should the robot take?
 jobs:
   qodana-scan:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      checks: write
-
     steps:
-      # Step A: Download your project code onto the cloud machine
       - name: Checkout Code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Fetches all history so Qodana can read Git tracking accurately
+        uses: actions/checkout@v3
 
-      # Step B: Spin up Docker and run the Qodana Scan automatically
-      - name: Qodana Scan
+      - name: Run Qodana Scan
         uses: JetBrains/qodana-action@v2026.1
+        with:
+          args: --linter,jetbrains/qodana-jvm-community
